@@ -17,8 +17,6 @@ wizLoader = (function() {
 
   wizLoader.data = {
     normal: [],
-    sort: [],
-    daily: [],
     count: 0
   };
 
@@ -112,17 +110,7 @@ wizLoader = (function() {
       if (type === 'normal') {
         data = wizLoader.data[type][pos];
         text = "題目顏色：" + data.color + "，題目類型：" + data.type + "，";
-      } else if (type === 'daily') {
-        data = {
-          question: wizLoader.data[type][pos][1] + "，網址：" + wizLoader.data[type][pos][0],
-          answer: wizLoader.data[type][pos][2]
-        };
-      } else {
-        data = {
-          question: wizLoader.data[type][pos][0],
-          answer: wizLoader.data[type][pos].slice(1).join('、')
-        };
-      }
+      } 
       text += "<a id=\"question-report\" href=\"javascript:void\" data-question=\"" + data.question + "\" data-answer=\"" + data.answer + "\">錯誤回報</a>";
       $("#question-info").css({
         top: trOffset.top,
@@ -164,24 +152,10 @@ wizLoader = (function() {
             if (entry.question.toLowerCase().indexOf(val) !== -1) {
               $("#result").append('<tr data-pos="' + index + '" data-type="normal"><td class="td-more"><a href="javascript:void(0);" class="btn-more">更多</a></td><td><div class="question">' + wizLoader.highlight(val, entry.question) + '</div><div class="text-danger">' + wizLoader.htmlEncode(entry.answer) + '</div></td></tr>');
             }
-          }
-        }
-      }
-      if ($("#fromSort:checked").val() === '1') {
-        _ref1 = wizLoader.data.sort;
-        for (index in _ref1) {
-          entry = _ref1[index];
-          if (entry[0].toLowerCase().indexOf(val) !== -1) {
-            $("#result").append('<tr><tr data-pos="' + index + '" data-type="sort"><td class="td-more"><a href="javascript:void(0);" class="btn-more">更多</a></td><td><div class="question">' + wizLoader.highlight(val, entry[0]) + '</div><div class="text-danger">' + wizLoader.htmlEncode(entry.slice(1).join('、')) + '</div></td></tr>');
-          }
-        }
-      }
-      if ($("#fromDaily:checked").val() === '1') {
-        _ref2 = wizLoader.data.daily;
-        for (index in _ref2) {
-          entry = _ref2[index];
-          if (entry[1].toLowerCase().indexOf(val) !== -1) {
-            $("#result").append('<tr><tr data-pos="' + index + '" data-type="daily"><td class="td-more"><a href="javascript:void(0);" class="btn-more">更多</a></td><td><div class="col-sm-3"><img src="' + entry[0] + '" /></div><div class="col-sm-5">' + wizLoader.highlight(val, entry[1]) + '</div><div class="col-sm-4 text-danger">' + wizLoader.htmlEncode(entry[2]) + '</div></td></tr>');
+          } else if (entry.answer.toLowerCase().indexOf(val) !== -1) {
+            if (entry.answer.toLowerCase().indexOf(val) !== -1) {
+              $("#result").append('<tr data-pos="' + index + '" data-type="normal"><td class="td-more"><a href="javascript:void(0);" class="btn-more">更多</a></td><td><div class="question">' + wizLoader.highlight(val, entry.question) + '</div><div class="text-danger">' + wizLoader.htmlEncode(entry.answer) + '</div></td></tr>');
+            }
           }
         }
       }
