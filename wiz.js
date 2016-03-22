@@ -11,6 +11,59 @@ https://spreadsheets.google.com/feeds/worksheets/1wzAwAH4rJ72Zw6r-bjoUujfS5SMOEr
 var wizLoader;
 var sheetID='1aLq_rLTl2SRwfbpL5ti5fOUw_VIopTDORskECJqSTow';
 var gridID='op44ln6';
+var Setting;
+
+Setting = {
+  localStorage: false,
+  cache: {
+    adLoading: "1",
+    searchMinLength: "1"
+  },
+  init: function() {
+    var key, localSetting, result, _ref;
+    Setting.localStorage = Setting.localStorageSupport();
+    if (Setting.localStorage) {
+      localSetting = localStorage.getItem("wizSetting");
+    } else {
+      localSetting = util.getCookie("wizSetting");
+    }
+    Setting.cache = $.extend({}, Setting.cache, JSON.parse(localSetting));
+    _ref = Setting.cache;
+    for (key in _ref) {
+      result = _ref[key];
+      $('.' + key).val(result);
+    }
+  },
+  get: function(key) {
+    return Setting.cache[key];
+  },
+  save: function(json) {
+    var k, localSetting, v, _i, _len;
+    localSetting = {};
+    for (k = _i = 0, _len = json.length; _i < _len; k = ++_i) {
+      v = json[k];
+      localSetting[v.name] = v.value;
+    }
+    Setting.cache = localSetting;
+    if (Setting.localStorage === true) {
+      return localStorage.setItem("wizSetting", JSON.stringify(localSetting));
+    } else {
+      return util.setCookie("wizSetting", JSON.stringify(localSetting), "");
+    }
+  },
+  localStorageSupport: function() {
+    var e;
+    try {
+      localStorage.setItem("test", "test");
+      localStorage.removeItem("test");
+      return true;
+    } catch (_error) {
+      e = _error;
+      return false;
+    }
+  }
+};
+
 
 wizLoader = (function() {
   function wizLoader() {}
@@ -88,7 +141,16 @@ wizLoader = (function() {
   };
 
   wizLoader.highlight = function(keyword, msg) {
-    return msg.split(keyword).join("<b>" + keyword + "</b>");
+    var kw, _i, _len;
+    if (Array.isArray(keyword)) {
+      for (_i = 0, _len = keyword.length; _i < _len; _i++) {
+        kw = keyword[_i];
+        msg = msg.split(kw).join("<b>" + kw + "</b>");
+      }
+    } else {
+      msg = msg.split(keyword).join("<b>" + keyword + "</b>");
+    }
+    return msg;
   };
 
   wizLoader._initEvent = function() {
@@ -132,15 +194,27 @@ wizLoader = (function() {
       return $('#report-modal').modal('show');
     });
     $("#inputKeyword").on("keyup", function() {
-      var entry, index, val, _ref, _ref1, _ref2;
+      var entry, index, val, vals, _ref, _ref1, _ref2;
+	  var i;
       val = $(this).val();
       $("#question-info").removeClass("active");
       $("#result").html("");
-      if (val.length <= 0) {
-        return;
-      }
+	  if (val.length < Setting.get("searchMinLength")) {
+		return;
+	  }
       val = val.toLowerCase();
-      if ($("#fromNormal:checked").val() === '1') {
+	  vals = val.split(' ');
+	  // clear space
+	  for( i = 0 ; i < vals.length; ++i) {
+		if (vals[i] == "") {
+			vals.splice(i, 1);
+			--i;
+		}
+	  }
+
+	  // hidden checkbox
+      // if ($("#fromNormal:checked").val() === '1') {
+	  if( true ) {
         _ref = wizLoader.data.normal;
         for (index in _ref) {
           entry = _ref[index];
@@ -148,17 +222,24 @@ wizLoader = (function() {
             console.debug(entry);
             continue;
           }
-          if (entry.question.toLowerCase().indexOf(val) !== -1) {
-            if (entry.question.toLowerCase().indexOf(val) !== -1) {
-              $("#result").append('<tr data-pos="' + index + '" data-type="normal"><td class="td-more"><a href="javascript:void(0);" class="btn-more">更多</a></td><td><div class="question">' + wizLoader.highlight(val, entry.question) + '</div><div class="text-danger">' + wizLoader.htmlEncode(entry.answer) + '</div></td></tr>');
-            }
-          } else if (entry.answer.toLowerCase().indexOf(val) !== -1) {
-            if (entry.answer.toLowerCase().indexOf(val) !== -1) {
-              $("#result").append('<tr data-pos="' + index + '" data-type="normal"><td class="td-more"><a href="javascript:void(0);" class="btn-more">更多</a></td><td><div class="question">' + wizLoader.highlight(val, entry.question) + '</div><div class="text-danger">' + wizLoader.htmlEncode(entry.answer) + '</div></td></tr>');
-            }
-          }
+		  var found = true;
+		  for(i=0; i < vals.length; ++i ) {
+			  if (entry.question.toLowerCase().indexOf(vals[i]) === -1 && entry.answer.toLowerCase().indexOf(vals[i]) === -1) {
+				  found = false;
+				  break;
+			  }
+		  }
+		  if(found) {
+			$("#result").append('<tr data-pos="' + index + '" data-type="normal"><td class="td-more"><a href="javascript:void(0);" class="btn-more">更多</a></td><td><div class="question">' + wizLoader.highlight(vals, entry.question) + '</div><div class="text-danger">' + wizLoader.htmlEncode(entry.answer) + '</div></td></tr>');
+		  }
         }
       }
+    });
+    $("#form-setting").on("submit", function(e) {
+      e.preventDefault();
+      Setting.save($("#form-setting").serializeArray());
+      $('#setting-modal').modal('hide');
+      return false;
     });
   };
 

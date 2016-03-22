@@ -26,6 +26,8 @@
         <link media="all" type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link media="all" type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
         <link media="all" type="text/css" rel="stylesheet" href="wiz.css">
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
         <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
         <!--[if lt IE 9]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -58,6 +60,7 @@
 						<li>
 							<a href="https://docs.google.com/forms/d/1wf8aclD8hGFxwiJwpTE1NfF3qnSVnLOZWbzlalBzNj4/viewform" target="_blank">問題回報</a>
 						</li>
+						<li><a href="#" data-toggle="modal" data-target="#setting-modal">設定</a></li>
                         <!-- <li><a href="#" data-toggle="modal" data-target="#post-modal">填寫表單</a></li> -->
                         <li class="visible-xs-block divider"></li>
                         <li class="visible-xs-block">
@@ -80,16 +83,18 @@
 
                 <form class="form">
                     <br />
-                    <div class="alert alert-info" role="alert">本頁面為活動用題庫，<a href="http://chrisliuqq.github.io/wiz-tw/">一般題庫請點此</a>  目前活動: 前進吧!!高捷少女!! 2015/12/24 - 2016/01/20</div>
+                    <div class="alert alert-info" role="alert">本頁面為活動用題庫，<a href="http://chrisliuqq.github.io/wiz-tw/">一般題庫請點此</a>  目前活動: 菇菇方程式</div>
 
-                    <h2 class="form-signin-heading">請輸入問題關鍵字<small id="load-count"></small></h2>
+                    <h2 class="form-signin-heading">關鍵字搜尋<small id="load-count"></small></h2>
                     <label for="inputKeyword" class="sr-only">關鍵字</label>
-                    <input type="text" id="inputKeyword" class="form-control" placeholder="請輸入問題關鍵字(目前不支援拆字搜尋)" required autofocus>
+                    <input type="text" id="inputKeyword" class="form-control" placeholder="請輸入「拉帕帕」或「拉 帕」" required autofocus>
+					<!-- 未來有使用再打開
                     <div class="">
                         <label class="checkbox-inline">
                             <input type="checkbox" class="from-source" id="fromNormal" name="from[]" value="1" checked> 問題
                         </label>
                     </div>
+					-->
                 </form>
                 <table class="table table-striped">
                     <tbody id="result">
@@ -171,6 +176,9 @@
                             <tr>
                                 <th>狸貓</th><td>週五全天</td><td>週六 13、18、23</td>
                             </tr>
+							<tr>
+                                <th>變幻龍</th><td>週六全天</td><td>-</td>
+                            </tr>
                             <tr>
                                 <th>火魔導書</th><td colspan="2">週一、週四、週日：09-10、12-13、15-16、19-20</td>
                             </tr>
@@ -248,6 +256,8 @@
                     </div>
                     <div class="modal-body">
                         <dl>
+							<dt>搜尋設定更新</dt>
+							<dd>新增至與原始系統相同功能，但有些許差異　-- 2016-03-23 01:49</dd>
 							<dt>搜尋更新</dt>
 							<dd>新增答案搜尋 -- 2016-01-05 00:59</dd>
 							<dt>活動用更新</dt>
@@ -259,6 +269,50 @@
                             <dt>更新留言功能、回報功能、問題屬性</dt>
                             <dd>因為版面配置問題，回報功能與問題屬性目前僅顯示在解析度大於 768px 的裝置上面。css 改用 scss 重寫過，js 也改用 coffee-script 重寫過。 -- 2015-02-06 04:00</dd>
                         </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="setting-modal" tabindex="-1" role="dialog" aria-labelledby="setting-modalLabal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="setting-modalLabel">設定</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-setting" class="form-horizontal">
+                            <!-- <div class="form-group">
+                                <label for="" class="col-sm-3 control-label">讀取時顯示廣告</label>
+                                <div class="col-sm-9">
+                                    <select name="adLoading" class="adLoading form-control">
+                                        <option value="1">是，我願意顯示廣告來贊助本站</option>
+                                        <option value="0">否，廣告什麼的都去死吧</option>
+                                    </select>
+                                    <span class="help-block">只有在進站時從 wikia 讀取題庫的時間顯示，讀取完畢後不會再顯示</span>
+                                </div>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label">搜尋時最小字數</label>
+                                <div class="col-sm-9">
+                                    <select name="searchMinLength" class="searchMinLength form-control">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                    <span class="help-block">避免輸入常用字時顯示筆數太多而造成停頓，可自行設定輸入幾個字後才開始搜尋</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">儲存設定</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -277,6 +331,7 @@
         <script src="wiz.js"></script>
         <script>
         $(document).ready( function() {
+			Setting.init();
             wizLoader.init();
             $("#btn-hide-footer").click(function() {
                 $("#footer").hide();
