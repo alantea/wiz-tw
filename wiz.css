@@ -52,12 +52,15 @@ html {
   margin-top: 50px;
   margin-bottom: 70px; }
 
+#load-count, #result-limit {
+  font-size: 50%; }
+
 #result img {
   max-width: 100%; }
 
 #result tr {
   position: relative; }
-#result b {
+#result b,strong {
   color: #09AE57;
   background-color: #F2F1B8; }
 #result .td-more {
