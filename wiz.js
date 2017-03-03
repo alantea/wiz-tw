@@ -321,10 +321,12 @@ wizLoader = (function() {
       $("#result-list").html("");
       html = "";
       result.each(function(r) {
-        if (r.type !== "分類題") {
-          return html += '<tr data-pos="XXD" data-type="' + r.type + '"><td><div class="question">' + r.question + '</div><div class="text-danger">' + wizLoader.htmlEncode(r.answer) + '</div></td></tr>';
-        } else if (r.type === "分類題") {
+        if (r.type === "分類題") {
           return html += '<tr data-pos="XXD" data-type="' + r.type + '"><td><div class="question">' + r.question + '</div><div class="text-danger">' + wizLoader.htmlEncode(r.answer).replace(/\n/, "<br />") + '</div></td></tr>';
+        } else if (r.type === "連連看") {
+          return html += '<tr data-pos="XXD" data-type="' + r.type + '"><td><div class="question">' + r.question + '</div><div class="text-danger">' + wizLoader.htmlEncode(r.answer).replace(/、/g, "<br />") + '</div></td></tr>';
+        } else {
+          return html += '<tr data-pos="XXD" data-type="' + r.type + '"><td><div class="question">' + r.question + '</div><div class="text-danger">' + wizLoader.htmlEncode(r.answer) + '</div></td></tr>';
         }
       });
       $("#result-list").append(html);
