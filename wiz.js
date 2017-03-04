@@ -165,7 +165,7 @@ wizLoader = (function() {
           if (name === '複選題') {
             tmp['type'] = '複選題';
           }
-          tmp['fulltext'] = "" + tmp['question'] + tmp['answer'];
+          tmp['fulltext'] = ("" + tmp['question'] + tmp['answer']).toLowerCase();
           db.push(tmp);
         }
       }

@@ -143,7 +143,7 @@ class wizLoader
                         tmp['type'] = '滑動題'
                     if name == '複選題'
                         tmp['type'] = '複選題'
-                    tmp['fulltext'] = "#{tmp['question']}#{tmp['answer']}"
+                    tmp['fulltext'] = "#{tmp['question']}#{tmp['answer']}".toLowerCase()
                     db.push(tmp)
         wizLoader.data.db.insert(db)
         return @_loadComplete()
