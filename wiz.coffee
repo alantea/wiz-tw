@@ -247,6 +247,7 @@ class wizLoader
 
         $("#inputKeyword").on "keyup", ->
             val = $(this).val()
+            val = val.replace(/\s\s+/g, ' ')
 
             $("#question-info").removeClass("active")
             $("#result").html("")

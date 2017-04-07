@@ -241,6 +241,7 @@ wizLoader = (function() {
     $("#inputKeyword").on("keyup", function() {
       var html, i, j, l, len, limit, ref, result, tmp, tmp2, type, v, val;
       val = $(this).val();
+      val = val.replace(/\s\s+/g, ' ');
       $("#question-info").removeClass("active");
       $("#result").html("");
       if (val.length < Setting.get("searchMinLength")) {
