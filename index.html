@@ -63,6 +63,7 @@
                                 <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScNLHUpNCeI3m4SQNhKgbaQ7Sr-q2_HqNvYk8M-odehU3_LEg/viewform">連連看</a></li>
                                 <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfjw3g3UaF9WB-QsnLZo2hXCgf6HHgcTKZ1MQjkxQYSxOmQgA/viewform">複選題</a></li>
                                 <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSdwn2Pw0ToZzlGcz9FM8LYQvHTtqwDg73djE3rCrpKJLlmn9g/viewform">滑動題</a></li>
+                                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSd3GRPXXpAjTZqpj-AsPTEuUiZ8dVJAf6zpbNSYsRcgEFuhLQ/viewform">QTE填空</a></li>
                             </ul>
                         </li>
                         <!-- <li><a href="#" data-toggle="modal" data-target="#post-modal">填寫表單</a></li> -->
@@ -114,7 +115,7 @@
 									<input type="checkbox" class="from-source" name="from[]" value="分類題"> 分類題
 								</label>
 								<label class="checkbox-inline">
-									<input type="checkbox" class="from-source" name="from[]" value="填空題" checked> 填空題(含01 QTE)
+									<input type="checkbox" class="from-source" name="from[]" value="填空題"> 填空題
 								</label>
 								<label class="checkbox-inline">
 									<input type="checkbox" class="from-source" name="from[]" value="連連看"> 連連看
@@ -124,6 +125,9 @@
 								</label>
 								<label class="checkbox-inline">
 									<input type="checkbox" class="from-source" name="from[]" value="複選題"> 複選題
+								</label>
+								<label class="checkbox-inline">
+									<input type="checkbox" class="from-source" name="from[]" value="QTE填空" checked> QTE填空
 								</label>
 							</div>
 						</form>
@@ -152,6 +156,9 @@
                                 </label>
                                 <label class="radio-inline">
                                     <input type="radio" class="list-type" name="list-type" value="複選題"> 複選題
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" class="list-type" name="list-type" value="QTE填空"> QTE填空
                                 </label>
                             </div>
                             <div class="alert alert-info" role="alert">
@@ -210,7 +217,7 @@
         <div id="overlay-loading">
             <div id="overlay-loading-content">
                 <i class="fa fa-spinner fa-pulse fa-4x"></i>
-                <div>從 google spreadsheets 讀取問題資料（<span id="loaded-count">0/5</span>）</div>
+                <div>從 google spreadsheets 讀取問題資料（<span id="loaded-count">0/6</span>）</div>
             </div>
         </div>
 
@@ -301,6 +308,10 @@
                         <h4 class="modal-title" id="update-modalLabel">更新紀錄</h4>
                     </div>
                     <div class="modal-body">
+						<dl>
+							<dt>[2017-6-30] 新增QTE題庫</dt>
+							<dd>QTE獨立出來，方便整理</dd>
+						</dl>
 						<dl>
 							<dt>[2017-3-3] 調整素材時間表，修改預設題型</dt>
 							<dd>與原版[2017-01-20]更新類似，調整預設為連連看(魔導盃)</dd>

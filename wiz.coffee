@@ -86,6 +86,9 @@ class wizLoader
             daily:
                 sheedId: "1jyP__9G2RqkoUuAT9o0SlwrYrJc_fW7ciiTphX6XuW4"
                 gridId:  "or1iuun"
+            qte:
+                sheedId: "1PI9_KO-b9pB6iAa3aN9boaJGx_TVN8DGD-jl23kwRCQ"
+                gridId:  "ov3nx57"
 #        loadCount: 0
 
     @addScript: (entry) ->
@@ -109,8 +112,10 @@ class wizLoader
                 return @_loadNormal ([data.feed.entry, '連連看'])
             if tmp[6] == 'oskx7l9'
                 return @_loadNormal ([data.feed.entry, '滑動題'])
+            if tmp[6] == 'or1iuun'
+                return @_loadNormal ([data.feed.entry, '複選題'])
 
-            return @_loadNormal ([data.feed.entry, '複選題'])
+            return @_loadNormal ([data.feed.entry, 'QTE填空'])
 
     @_loadNormal: (indata) ->
         data = indata[0]
@@ -143,6 +148,8 @@ class wizLoader
                         tmp['type'] = '滑動題'
                     if name == '複選題'
                         tmp['type'] = '複選題'
+                    if name == 'QTE填空'
+                        tmp['type'] = 'QTE填空'
                     tmp['fulltext'] = "#{tmp['question']}#{tmp['answer']}".toLowerCase()
                     db.push(tmp)
         wizLoader.data.db.insert(db)

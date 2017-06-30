@@ -98,6 +98,10 @@ wizLoader = (function() {
       daily: {
         sheedId: "1jyP__9G2RqkoUuAT9o0SlwrYrJc_fW7ciiTphX6XuW4",
         gridId: "or1iuun"
+      },
+      qte: {
+        sheedId: "1PI9_KO-b9pB6iAa3aN9boaJGx_TVN8DGD-jl23kwRCQ",
+        gridId: "ov3nx57"
       }
     }
   };
@@ -126,7 +130,10 @@ wizLoader = (function() {
       if (tmp[6] === 'oskx7l9') {
         return this._loadNormal([data.feed.entry, '滑動題']);
       }
-      return this._loadNormal([data.feed.entry, '複選題']);
+      if (tmp[6] === 'or1iuun') {
+        return this._loadNormal([data.feed.entry, '複選題']);
+      }
+      return this._loadNormal([data.feed.entry, 'QTE填空']);
     }
   };
 
@@ -164,6 +171,9 @@ wizLoader = (function() {
           }
           if (name === '複選題') {
             tmp['type'] = '複選題';
+          }
+          if (name === 'QTE填空') {
+            tmp['type'] = 'QTE填空';
           }
           tmp['fulltext'] = ("" + tmp['question'] + tmp['answer']).toLowerCase();
           db.push(tmp);
