@@ -88,7 +88,7 @@ class wizLoader
                 gridId:  "or1iuun"
             qte:
                 sheedId: "1PI9_KO-b9pB6iAa3aN9boaJGx_TVN8DGD-jl23kwRCQ"
-                gridId:  "ov3nx57"
+                gridId:  "odgqila"
 #        loadCount: 0
 
     @addScript: (entry) ->
