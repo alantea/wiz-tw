@@ -273,10 +273,10 @@ class wizLoader
                 if val.split(" ").length > 1
                     val = val.split(" ")
                     #val = val.unique()
-					#	a = [];
-					#	for i in [0...this.length]
-					#		if (a.indexOf(this[i]) == -1)
-					#			a.push(this[i]);
+                    #   a = [];
+                    #   for i in [0...this.length]
+                    #       if (a.indexOf(this[i]) == -1)
+                    #           a.push(this[i]);
                     tmp = []
                     tmp2 = val
                     for i in [0...tmp2.length]
@@ -370,12 +370,12 @@ class wizLoader
             @addScript (entry)
         @_initEvent()
         return
-	$("#form-setting").on "submit", (e) ->
-		e.preventDefault()
-		Setting.save($("#form-setting").serializeArray())
-		$('#setting-modal').modal('hide')
-		$("#result-limit").html("<span class='hidden-xs'>僅顯示</span>前 <a href='#' data-toggle='modal' data-target='#setting-modal'>#{Setting.get('searchMaxResult')} </a>個<span class='hidden-xs'>結果</span>。")
-		return false
+    $("#form-setting").on "submit", (e) ->
+        e.preventDefault()
+        Setting.save($("#form-setting").serializeArray())
+        $('#setting-modal').modal('hide')
+        $("#result-limit").html("<span class='hidden-xs'>僅顯示</span>前 <a href='#' data-toggle='modal' data-target='#setting-modal'>#{Setting.get('searchMaxResult')} </a>個<span class='hidden-xs'>結果</span>。")
+        return false
 
 $ ->
     Setting.init()

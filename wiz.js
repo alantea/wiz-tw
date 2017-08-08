@@ -354,17 +354,17 @@ wizLoader = (function() {
     this._initEvent();
   };
 
+  $("#form-setting").on("submit", function(e) {
+    e.preventDefault();
+    Setting.save($("#form-setting").serializeArray());
+    $('#setting-modal').modal('hide');
+    $("#result-limit").html("<span class='hidden-xs'>僅顯示</span>前 <a href='#' data-toggle='modal' data-target='#setting-modal'>" + (Setting.get('searchMaxResult')) + " </a>個<span class='hidden-xs'>結果</span>。");
+    return false;
+  });
+
   return wizLoader;
 
 })();
-
-$("#form-setting").on("submit", function(e) {
-  e.preventDefault();
-  Setting.save($("#form-setting").serializeArray());
-  $('#setting-modal').modal('hide');
-  $("#result-limit").html("<span class='hidden-xs'>僅顯示</span>前 <a href='#' data-toggle='modal' data-target='#setting-modal'>" + (Setting.get('searchMaxResult')) + " </a>個<span class='hidden-xs'>結果</span>。");
-  return false;
-});
 
 $(function() {
   return Setting.init();
