@@ -89,6 +89,9 @@ class wizLoader
             qte:
                 sheedId: "1PI9_KO-b9pB6iAa3aN9boaJGx_TVN8DGD-jl23kwRCQ"
                 gridId:  "odgqila"
+            wordlink:
+                sheedId: "1ug49hf6tKn6xI9X4r69fVm8oifRcDtfVV4bQz4257Z0"
+                gridId:  "o37ls6y"
 #        loadCount: 0
 
     @addScript: (entry) ->
@@ -114,6 +117,8 @@ class wizLoader
                 return @_loadNormal ([data.feed.entry, '滑動題'])
             if tmp[6] == 'or1iuun'
                 return @_loadNormal ([data.feed.entry, '複選題'])
+            if tmp[6] == 'o37ls6y'
+                return @_loadNormal ([data.feed.entry, '尋字問答'])
 
             return @_loadNormal ([data.feed.entry, 'QTE填空'])
 
@@ -148,6 +153,8 @@ class wizLoader
                         tmp['type'] = '滑動題'
                     if name == '複選題'
                         tmp['type'] = '複選題'
+                    if name == '尋字問答'
+                        tmp['type'] = '尋字問答'
                     if name == 'QTE填空'
                         tmp['type'] = 'QTE填空'
                     tmp['fulltext'] = "#{tmp['question']}#{tmp['answer']}".toLowerCase()
