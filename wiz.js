@@ -14,10 +14,13 @@ var Setting, wizLoader,
 
 Setting = {
   localStorage: false,
+  defaulttype: "QTE複選",
   cache: {
-    adLoading: "1",
+    adLoading: "0",
     searchMinLength: "1",
-    searchMaxResult: "25"
+    searchMaxResult: "25",
+    searchTypeControl: "no",
+    searchType: []
   },
   init: function() {
     var key, localSetting, ref, result;
@@ -34,6 +37,12 @@ Setting = {
       result = ref[key];
       $('.' + key).val(result);
     }
+    if (Setting.get("searchTypeControl") !== "no" && Setting.get("searchType") !== []) {
+      $(".from-source").val(Setting.get("searchType")).change();
+    } else {
+      Setting.cache['searchType'] = [Setting.defaulttype];
+      $(".from-source").val(Setting.get("searchType")).change();
+    }
     if (Setting.get("adLoading") !== "1") {
       return $("#overlay-loading-ad").remove();
     }
@@ -48,7 +57,7 @@ Setting = {
       v = json[k];
       localSetting[v.name] = v.value;
     }
-    Setting.cache = localSetting;
+    localSetting = Setting.cache = $.extend({}, Setting.cache, localSetting);
     if (Setting.localStorage === true) {
       return localStorage.setItem("wizSetting", JSON.stringify(localSetting));
     } else {
@@ -99,13 +108,21 @@ wizLoader = (function() {
         sheedId: "1jyP__9G2RqkoUuAT9o0SlwrYrJc_fW7ciiTphX6XuW4",
         gridId: "or1iuun"
       },
-      qte: {
+      qtefib: {
         sheedId: "1PI9_KO-b9pB6iAa3aN9boaJGx_TVN8DGD-jl23kwRCQ",
         gridId: "odgqila"
+      },
+      qtechoices: {
+        sheedId: "1LM_CwiGjAmAaXEjS9StSlPUagqRDN-PAiRd0FCd2kfs",
+        gridId: "ocjs4br"
       },
       wordlink: {
         sheedId: "1ug49hf6tKn6xI9X4r69fVm8oifRcDtfVV4bQz4257Z0",
         gridId: "o37ls6y"
+      },
+      ox: {
+        sheedId: "1-5iop718lUUzlJ__ON60juOr9tgSBYoGIQb43GFqBSU",
+        gridId: "o1yqdj2"
       }
     }
   };
@@ -139,6 +156,12 @@ wizLoader = (function() {
       }
       if (tmp[6] === 'o37ls6y') {
         return this._loadNormal([data.feed.entry, '尋字問答']);
+      }
+      if (tmp[6] === 'o1yqdj2') {
+        return this._loadNormal([data.feed.entry, 'OX題']);
+      }
+      if (tmp[6] === 'ocjs4br') {
+        return this._loadNormal([data.feed.entry, 'QTE複選']);
       }
       return this._loadNormal([data.feed.entry, 'QTE填空']);
     }
@@ -185,6 +208,12 @@ wizLoader = (function() {
           if (name === 'QTE填空') {
             tmp['type'] = 'QTE填空';
           }
+          if (name === 'QTE複選') {
+            tmp['type'] = 'QTE複選';
+          }
+          if (name === 'OX題') {
+            tmp['type'] = 'OX題';
+          }
           tmp['fulltext'] = ("" + tmp['question'] + tmp['answer']).toLowerCase();
           db.push(tmp);
         }
@@ -228,6 +257,18 @@ wizLoader = (function() {
       return false;
     });
     $(".from-source").on("change", function() {
+      var type;
+      if (Setting.get('searchTypeControl') !== 'no') {
+        type = $(".from-source:checked").map(function() {
+          return this.value;
+        }).get();
+        Setting.save([
+          {
+            name: 'searchType',
+            value: type
+          }
+        ]);
+      }
       return $("#inputKeyword").trigger("keyup");
     });
     $("#result").on("click", ".btn-more", function() {
@@ -365,8 +406,17 @@ wizLoader = (function() {
   };
 
   $("#form-setting").on("submit", function(e) {
+    var formArray, type;
     e.preventDefault();
-    Setting.save($("#form-setting").serializeArray());
+    type = $(".from-source:checked").map(function() {
+      return this.value;
+    }).get();
+    formArray = $("#form-setting").serializeArray();
+    formArray.push({
+      name: 'searchType',
+      value: type
+    });
+    Setting.save(formArray);
     $('#setting-modal').modal('hide');
     $("#result-limit").html("<span class='hidden-xs'>僅顯示</span>前 <a href='#' data-toggle='modal' data-target='#setting-modal'>" + (Setting.get('searchMaxResult')) + " </a>個<span class='hidden-xs'>結果</span>。");
     return false;

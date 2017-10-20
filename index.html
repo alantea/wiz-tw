@@ -65,6 +65,8 @@
                                 <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSdwn2Pw0ToZzlGcz9FM8LYQvHTtqwDg73djE3rCrpKJLlmn9g/viewform">滑動題</a></li>
                                 <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScQ1LuxQPpnsxs2D9xXDjMEdt8MU_u_fbx2P95kJnheYBG8tQ/viewform">尋字問答</a></li>
                                 <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSd3GRPXXpAjTZqpj-AsPTEuUiZ8dVJAf6zpbNSYsRcgEFuhLQ/viewform">QTE填空</a></li>
+                                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfBVUUjWjc7u7gxW3rLSOefOwP7jeZQ-4edF5fbeD53rPxw-A/viewform">QTE複選</a></li>
+                                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfdDUpOlGI3gp0AXOwwVhs9sdtjvUqdSjiAT7ZWl5z9QAImBg/viewform">OX題</a></li>
                             </ul>
                         </li>
                         <!-- <li><a href="#" data-toggle="modal" data-target="#post-modal">填寫表單</a></li> -->
@@ -128,10 +130,16 @@
                                     <input type="checkbox" class="from-source" name="from[]" value="複選題"> 複選題
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" class="from-source" name="from[]" value="尋字問答" checked> 尋字問答
+                                    <input type="checkbox" class="from-source" name="from[]" value="尋字問答"> 尋字問答
                                 </label>
                                 <label class="checkbox-inline">
                                     <input type="checkbox" class="from-source" name="from[]" value="QTE填空"> QTE填空
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" class="from-source" name="from[]" value="QTE複選"> QTE複選
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" class="from-source" name="from[]" value="OX題"> OX題
                                 </label>
                             </div>
                         </form>
@@ -166,6 +174,12 @@
                                 </label>
                                 <label class="radio-inline">
                                     <input type="radio" class="list-type" name="list-type" value="QTE填空"> QTE填空
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" class="list-type" name="list-type" value="QTE複選"> QTE複選
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" class="list-type" name="list-type" value="OX題"> OX題
                                 </label>
                             </div>
                             <div class="alert alert-info" role="alert">
@@ -316,6 +330,10 @@
                     </div>
                     <div class="modal-body">
                         <dl>
+                            <dt>[2017-10-20] 新增QTE複選、OX、題型紀錄</dt>
+                            <dd>自動記錄題型，有興趣的人可以試試看</dd>
+                        </dl>
+                        <dl>
                             <dt>[2017-9-16] 新增尋字問答</dt>
                             <dd>阿~ 題目好難</dd>
                         </dl>
@@ -380,6 +398,16 @@
                                         <option value="99999">無限制（99999）</option>
                                     </select>
                                     <span class="help-block">避免輸入常用字時顯示筆數太多而造成停頓，可自行設定只顯示最多幾筆結果</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label">自動記錄題型</label>
+                                <div class="col-sm-9">
+                                    <select name="searchTypeControl" class="searchTypeControl form-control">
+                                        <option value="yes">是</option>
+                                        <option value="no">否</option>
+                                    </select>
+                                    <span class="help-block">特殊題型有許多種類，可選擇是否紀錄目前題型</span>
                                 </div>
                             </div>
                             <div class="form-group">
